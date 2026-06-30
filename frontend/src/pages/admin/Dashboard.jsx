@@ -1,11 +1,40 @@
 import DashboardLayout from "../../layouts/DashboardLayout";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <DashboardLayout>
-      <h2 className="mb-6 text-3xl font-bold">
-        Hospital Dashboard
-      </h2>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h2 className="text-3xl font-bold">
+            Hospital Dashboard
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Welcome back, <strong>{user?.name}</strong>
+          </p>
+
+          <p className="text-gray-500">
+            Role: {user?.role}
+          </p>
+        </div>
+
+        <button
+          onClick={handleLogout}
+          className="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+        >
+          Logout
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-xl bg-white p-6 shadow">

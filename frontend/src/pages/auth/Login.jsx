@@ -35,16 +35,16 @@ export default function Login() {
 
       toast.success("Login successful");
 
-      switch (data.user.unit) {
-        case "admin":
+      switch (data.user.role) {
+        case "ADMIN":
           navigate("/admin");
           break;
 
-        case "doctor":
+        case "DOCTOR":
           navigate("/doctor");
           break;
 
-        case "nurse":
+        case "NURSE":
           navigate("/nurse");
           break;
 

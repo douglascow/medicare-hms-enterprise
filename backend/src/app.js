@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 
+import authRoutes from "./routes/authRoutes.js";
+
 const app = express();
 
 app.use(cors());
@@ -16,5 +18,8 @@ app.get("/", (req, res) => {
     message: "MediCare HMS API is running 🚀",
   });
 });
+
+// Authentication Routes
+app.use("/api/auth", authRoutes);
 
 export default app;
