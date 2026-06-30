@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-
+import patientRoutes from "./routes/patientRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
@@ -21,5 +21,6 @@ app.get("/", (req, res) => {
 
 // Authentication Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/patients", patientRoutes);
 
 export default app;
