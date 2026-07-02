@@ -54,6 +54,9 @@ model Patient {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  doctorId Int?
+  doctor   Doctor? @relation(fields: [doctorId], references: [id])
 }
 
 enum Gender {
@@ -83,4 +86,47 @@ enum PatientStatus {
   ACTIVE
   DISCHARGED
   DECEASED
+}
+
+model Department {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+
+  doctors Doctor[]
+  nurses  Nurse[]
+}
+
+model Doctor {
+  id             Int    @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  email          String @unique
+  phone          String
+  specialization String
+  licenseNumber  String @unique
+
+  departmentId Int
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  patients Patient[]
+}
+
+model Nurse {
+  id            Int    @id @default(autoincrement())
+  firstName     String
+  lastName      String
+  email         String @unique
+  phone         String
+  licenseNumber String @unique
+
+  departmentId Int
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
