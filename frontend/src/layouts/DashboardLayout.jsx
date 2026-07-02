@@ -5,6 +5,9 @@ export default function DashboardLayout({ children }) {
   return (
     <div className="flex h-screen bg-slate-100">
       <Sidebar />
+      <Link to="/patients">
+        Patients
+      </Link>
 
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header />

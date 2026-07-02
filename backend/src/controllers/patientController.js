@@ -147,3 +147,74 @@ export const deletePatient = async (req, res) => {
     });
   }
 };
+
+export async function getPatient(req, res) {
+  try {
+    const patient = await prisma.patient.findUnique({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+
+    if (!patient) {
+      return res.status(404).json({
+        message: "Patient not found",
+      });
+    }
+
+    res.json({
+      patient,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+}
+
+export async function deletePatient(req, res) {
+
+  try {
+
+    await prisma.patient.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+
+    res.json({
+      success: true,
+      message: "Patient deleted successfully",
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+
+}
+
+export async function updatePatient(req, res) {
+  try {
+    const patient = await prisma.patient.update({
+      where: {
+        id: Number(req.params.id),
+      },
+      data: req.body,
+    });
+
+    res.json({
+      success: true,
+      message: "Patient updated successfully",
+      patient,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+}
